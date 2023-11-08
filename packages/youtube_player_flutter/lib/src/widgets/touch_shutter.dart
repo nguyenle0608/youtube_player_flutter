@@ -24,11 +24,19 @@ class TouchShutter extends StatefulWidget {
   /// Sets the timeout until when the controls hide.
   final Duration timeOut;
 
+  /// {@template youtube_player_flutter.thumbnail}
+  /// Defines color barrier color.
+  ///
+  /// Default is Colors.black.withAlpha(150).
+  /// {@endtemplate}
+  final Color? color;
+
   /// Creates [TouchShutter] widget.
   TouchShutter({
     this.controller,
     this.disableDragSeek = false,
     required this.timeOut,
+    this.color,
   });
 
   @override
@@ -139,7 +147,7 @@ class _TouchShutterState extends State<TouchShutter> {
             child: AnimatedContainer(
               duration: const Duration(milliseconds: 300),
               color: _controller.value.isControlsVisible
-                  ? Colors.black.withAlpha(150)
+                  ? widget.color ?? Colors.black.withAlpha(150)
                   : Colors.transparent,
               child: _dragging
                   ? Center(

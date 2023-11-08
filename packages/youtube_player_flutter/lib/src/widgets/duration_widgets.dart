@@ -12,8 +12,14 @@ class CurrentPosition extends StatefulWidget {
   /// Overrides the default [YoutubePlayerController].
   final YoutubePlayerController? controller;
 
+  /// Text style
+  final TextStyle? textStyle;
+
   /// Creates [CurrentPosition] widget.
-  CurrentPosition({this.controller});
+  CurrentPosition({
+    this.controller,
+    this.textStyle,
+  });
 
   @override
   _CurrentPositionState createState() => _CurrentPositionState();
@@ -59,7 +65,7 @@ class _CurrentPositionState extends State<CurrentPosition> {
       style: const TextStyle(
         color: Colors.white,
         fontSize: 12.0,
-      ),
+      ).merge(widget.textStyle),
     );
   }
 }
