@@ -46,11 +46,12 @@ class ProgressBarColors {
 /// A widget to display video progress bar.
 class ProgressBar extends StatefulWidget {
   /// Creates [ProgressBar] widget.
-  const ProgressBar({
-    super.key,
+  ProgressBar({
     this.controller,
     this.colors,
     this.isExpanded = false,
+    this.progressWidth,
+    this.handleRadius,
   });
 
   /// Overrides the default [YoutubePlayerController].
@@ -63,6 +64,12 @@ class ProgressBar extends StatefulWidget {
   ///
   /// Default is false.
   final bool isExpanded;
+
+  /// Defines progress width for [ProgressBar].
+  final double? progressWidth;
+
+  /// Defines handle radius width for [ProgressBar].
+  final double? handleRadius;
 
   @override
   State<ProgressBar> createState() => _ProgressBarState();
@@ -169,11 +176,12 @@ class _ProgressBarState extends State<ProgressBar> {
       onHorizontalDragCancel: _dragEndActions,
       child: Container(
         color: Colors.transparent,
-        constraints: const BoxConstraints.expand(height: 7.0 * 2),
+        constraints:
+            BoxConstraints.expand(height: (widget.handleRadius ?? 7.0) * 2),
         child: CustomPaint(
           painter: _ProgressBarPainter(
-            progressWidth: 2.0,
-            handleRadius: 7.0,
+            progressWidth: widget.progressWidth ?? 2.0,
+            handleRadius: widget.handleRadius ?? 7.0,
             playedValue: _playedValue,
             bufferedValue: _bufferedValue,
             colors: widget.colors,
@@ -220,7 +228,7 @@ class _ProgressBarPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     final paint = Paint()
       ..isAntiAlias = true
-      ..strokeCap = StrokeCap.square
+      ..strokeCap = StrokeCap.round
       ..strokeWidth = progressWidth;
 
     final centerY = size.height / 2.0;

@@ -12,8 +12,14 @@ class CurrentPosition extends StatefulWidget {
   /// Overrides the default [YoutubePlayerController].
   final YoutubePlayerController? controller;
 
+  /// Text style
+  final TextStyle? textStyle;
+
   /// Creates [CurrentPosition] widget.
-  const CurrentPosition({super.key, this.controller});
+  const CurrentPosition({
+    super.key, this.controller,
+    this.textStyle,
+  });
 
   @override
   State<CurrentPosition> createState() => _CurrentPositionState();
@@ -28,9 +34,9 @@ class _CurrentPositionState extends State<CurrentPosition> {
     final controller = YoutubePlayerController.of(context);
     if (controller == null) {
       assert(
-        widget.controller != null,
-        '\n\nNo controller could be found in the provided context.\n\n'
-        'Try passing the controller explicitly.',
+      widget.controller != null,
+      '\n\nNo controller could be found in the provided context.\n\n'
+          'Try passing the controller explicitly.',
       );
       _controller = widget.controller!;
     } else {
@@ -59,7 +65,7 @@ class _CurrentPositionState extends State<CurrentPosition> {
       style: const TextStyle(
         color: Colors.white,
         fontSize: 12.0,
-      ),
+      ).merge(widget.textStyle),
     );
   }
 }
@@ -85,9 +91,9 @@ class _RemainingDurationState extends State<RemainingDuration> {
     final controller = YoutubePlayerController.of(context);
     if (controller == null) {
       assert(
-        widget.controller != null,
-        '\n\nNo controller could be found in the provided context.\n\n'
-        'Try passing the controller explicitly.',
+      widget.controller != null,
+      '\n\nNo controller could be found in the provided context.\n\n'
+          'Try passing the controller explicitly.',
       );
       _controller = widget.controller!;
     } else {

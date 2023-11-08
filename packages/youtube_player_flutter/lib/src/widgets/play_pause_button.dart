@@ -3,6 +3,7 @@
 // found in the LICENSE file.
 
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import '../enums/player_state.dart';
 import '../utils/youtube_player_controller.dart';
@@ -96,11 +97,21 @@ class _PlayPauseButtonState extends State<PlayPauseButton>
           child: InkWell(
             borderRadius: BorderRadius.circular(50.0),
             onTap: () => _togglePlayPause(state),
-            child: AnimatedIcon(
-              icon: AnimatedIcons.play_pause,
-              progress: _animController.view,
-              color: Colors.white,
-              size: 60.0,
+            child: Container(
+              width: 40.0,
+              height: 40.0,
+              padding: const EdgeInsets.all(12.0),
+              decoration: BoxDecoration(
+                color: const Color(0xCC171717),
+                borderRadius: BorderRadius.circular(50.0),
+              ),
+              child: _controller.value.isPlaying
+                  ? SvgPicture.asset(
+                      'assets/icons/ic_pause.svg',
+                    )
+                  : SvgPicture.asset(
+                      'assets/icons/ic_play.svg',
+                    ),
             ),
           ),
         ),
